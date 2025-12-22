@@ -15,6 +15,7 @@ const TriviaGame: React.FC = () => {
   const [currentCategory, setCurrentCategory] = useState<Category | null>(null);
   const [currentQuestion, setCurrentQuestion] = useState<Question | null>(null);
   const [showAnswer, setShowAnswer] = useState<boolean>(false);
+  const [answeredQuestions, setAnsweredQuestions] = useState<Set<string>>(new Set());
   const [teams, setTeams] = useState<Team[]>([
     { id: 1, name: 'Equipo 1', score: 0, color: 'bg-red-500' },
     { id: 2, name: 'Equipo 2', score: 0, color: 'bg-green-500' },
@@ -47,6 +48,12 @@ const TriviaGame: React.FC = () => {
   };
 
   const handleBack = (): void => {
+    if (currentQuestion && currentCategory) {
+      // Marcar la pregunta como respondida usando categoryId + índice
+      const questionIndex = currentCategory.questions.findIndex(q => q.q === currentQuestion.q);
+      const questionKey = `${currentCategory.id}-${questionIndex}`;
+      setAnsweredQuestions(prev => new Set([...prev, questionKey]));
+    }
     setCurrentQuestion(null);
     setCurrentCategory(null);
     setShowAnswer(false);
@@ -57,6 +64,7 @@ const TriviaGame: React.FC = () => {
     setCurrentQuestion(null);
     setCurrentCategory(null);
     setShowAnswer(false);
+    setAnsweredQuestions(new Set());
   };
 
   // Welcome Screen
@@ -198,16 +206,25 @@ const TriviaGame: React.FC = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {categories.map(category => (
-              <button
-                key={category.id}
-                onClick={() => handleCategorySelect(category)}
-                className={`${category.color} hover:opacity-90 text-white rounded-2xl p-8 shadow-xl transform hover:scale-105 transition-all`}
-              >
-                <div className="text-3xl font-bold mb-2">{category.name}</div>
-                <div className="text-lg opacity-90">{category.questions.length} preguntas</div>
-              </button>
-            ))}
+            {categories.map(category => {
+              const answeredInCategory = category.questions.filter((_, index) => 
+                answeredQuestions.has(`${category.id}-${index}`)
+              ).length;
+              const remainingQuestions = category.questions.length - answeredInCategory;
+              
+              return (
+                <button
+                  key={category.id}
+                  onClick={() => handleCategorySelect(category)}
+                  className={`${category.color} hover:opacity-90 text-white rounded-2xl p-8 shadow-xl transform hover:scale-105 transition-all`}
+                >
+                  <div className="text-3xl font-bold mb-2">{category.name}</div>
+                  <div className="text-lg opacity-90">
+                    {remainingQuestions} de {category.questions.length} preguntas restantes
+                  </div>
+                </button>
+              );
+            })}
           </div>
         </div>
       </div>
@@ -235,22 +252,33 @@ const TriviaGame: React.FC = () => {
 
         {/* Questions */}
         <div className="grid grid-cols-1 gap-6">
-          {currentCategory.questions.map((question, index) => (
-            <button
-              key={index}
-              onClick={() => handleQuestionSelect(question)}
-              className="bg-white hover:bg-gray-100 rounded-2xl p-8 shadow-xl transform hover:scale-105 transition-all text-left"
-            >
-              <div className="flex justify-between items-center">
-                <div className="text-2xl font-bold text-gray-800 flex-1">
-                  Pregunta {index + 1}
+          {currentCategory.questions.map((question, index) => {
+            const questionKey = `${currentCategory.id}-${index}`;
+            const isAnswered = answeredQuestions.has(questionKey);
+            
+            return (
+              <button
+                key={index}
+                onClick={() => !isAnswered && handleQuestionSelect(question)}
+                disabled={isAnswered}
+                className={`rounded-2xl p-8 shadow-xl transition-all text-left ${
+                  isAnswered 
+                    ? 'bg-gray-400 cursor-not-allowed opacity-60' 
+                    : 'bg-white hover:bg-gray-100 transform hover:scale-105'
+                }`}
+              >
+                <div className="flex justify-between items-center">
+                  <div className={`text-2xl font-bold flex-1 ${isAnswered ? 'text-gray-600 line-through' : 'text-gray-800'}`}>
+                    Pregunta {index + 1}
+                    {isAnswered && <span className="ml-3 text-lg">✓ Respondida</span>}
+                  </div>
+                  <div className={`text-3xl font-bold ${isAnswered ? 'text-gray-500' : 'text-purple-600'}`}>
+                    {question.points} pts
+                  </div>
                 </div>
-                <div className="text-3xl font-bold text-purple-600">
-                  {question.points} pts
-                </div>
-              </div>
-            </button>
-          ))}
+              </button>
+            );
+          })}
         </div>
       </div>
     </div>
