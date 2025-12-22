@@ -95,6 +95,11 @@ export const categories: Category[] = [
         points: 150
       },
       {
+        q: '¿En qué ciudad nació la abuelita Elenita?',
+        a: 'Ciudad Victoria',
+        points: 150
+      },
+      {
         q: '¿Cuál es el nombre completo de Buchita?',
         a: 'Tiburcia Camacho Ortiz',
         points: 200
@@ -103,16 +108,6 @@ export const categories: Category[] = [
         q: '¿En qué mes y año se mudó la familia a Privada Río Sena?',
         a: 'Enero de 2007',
         points: 200
-      },
-      {
-        q: '¿Qué animal significa el apellido "Dieck" en árabe?',
-        a: 'Gallo ديك',
-        points: 250
-      },
-      {
-        q: '¿Qué animal significa el apellido "Assad" en árabe?',
-        a: 'León أسد',
-        points: 250
       },
       {
         q: '¿Cómo se llamaba la mamá del abuelito Chano?',
@@ -152,12 +147,12 @@ export const categories: Category[] = [
         points: 100
       },
       {
-        q: 'En el cumpleaños de pesca de Samuel, ¿cuántos peces pescamos en total?',
+        q: 'En el cumpleaños de pesca de Samuel, ¿cuántos peces se pescaron en total?',
         a: '0 (cero) - ¡Ni uno!',
         points: 100
       },
       {
-        q: '¿A quién se les olvidó en la cima del Cerro de la Bufa en Zacatecas?',
+        q: '¿A quién olvidaron en la cima del Cerro de la Bufa en Zacatecas?',
         a: 'A la tía Salma',
         points: 150
       },
@@ -205,6 +200,16 @@ export const categories: Category[] = [
         q: '¿De qué hotel corrieron a los primos por comerse pizzas que no eran suyas?',
         a: 'Embassy Suites en McAllen',
         points: 300
+      },
+      {
+        q: '¿Quién se escondia en los rackets de ropa de las tiendas cuando era chica?',
+        a: 'Josephine',
+        points: 350
+      },
+      {
+        q: '¿Quién leía las etiquetas de los juguetes en las tiendas y decía "¿Esto es para <nombre de la persona>?"?',
+        a: 'Lulita',
+        points: 350
       },
       {
         q: 'En el crucero, ¿qué dos familiares le pedían al Alf que esperara la pizza mientras ellos se dormían? (Por eso se aprendió todos los anuncios de la tele)',
@@ -259,7 +264,17 @@ export const categories: Category[] = [
         points: 200
       },
       {
-        q: '¿Qué platillo NUNCA faltaba los sábados en casa de Siti, hecho por Buch?',
+        q: '¿Qué animal significa el apellido "Dieck" en árabe?',
+        a: 'Gallo ديك',
+        points: 250
+      },
+      {
+        q: '¿Qué animal significa el apellido "Assad" en árabe?',
+        a: 'León أسد',
+        points: 250
+      },
+      {
+        q: 'Menciona UN plantillo que nunca faltaba los sábados en casa de Siti, hecho por Buch',
         a: 'Tostadas u Hojas de parra',
         points: 200
     },
@@ -271,7 +286,7 @@ export const categories: Category[] = [
       {
         q: '¿Qué significa la palabra árabe "Haram"?',
         a: 'Pobrecito / Cositas',
-        points: 200
+        points: 250
       },
       {
         q: '¿Quién inventó la expresión "casa todos"?',
@@ -306,11 +321,6 @@ export const categories: Category[] = [
         points: 100
       },
       {
-        q: '¿En qué ciudad nació la abuelita Elenita?',
-        a: 'Ciudad Victoria',
-        points: 150
-      },
-      {
         q: 'Menciona el nombre de uno de los hoteles donde se hospedaba la familia en la Isla del Padre',
         a: 'El Tiki o La Internacional',
         points: 150
@@ -336,7 +346,7 @@ export const categories: Category[] = [
         points: 300
       },
       {
-        q: '¿Qué apodo le puso el tío Pedro a la ciudad de Monterrey?',
+        q: '¿Qué apodo le puso tío Pedro a la ciudad de Monterrey?',
         a: '"La caldera del diablo"',
         points: 400
       }
@@ -426,7 +436,7 @@ export const categories: Category[] = [
       },
       {
         q: '¿Cómo se llamaba el campamento de basquetbol al que íbamos de niños?',
-        a: 'Spurs o Crusander',
+        a: 'Spurs o Crusandaer',
         points: 300
       },
       {

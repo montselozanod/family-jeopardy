@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Sparkles, Trophy } from 'lucide-react';
+import { Sparkles, Trophy, BookOpen } from 'lucide-react';
 import { categories, type Question, type Category } from '../triviaData';
+import QuestionReview from './QuestionReview';
 
 // Type Definitions
 interface Team {
@@ -23,6 +24,7 @@ const TEAM_COLORS = [
 
 const TriviaGame: React.FC = () => {
   const [gameStarted, setGameStarted] = useState<boolean>(false);
+  const [showReview, setShowReview] = useState<boolean>(false);
   const [currentCategory, setCurrentCategory] = useState<Category | null>(null);
   const [currentQuestion, setCurrentQuestion] = useState<Question | null>(null);
   const [showAnswer, setShowAnswer] = useState<boolean>(false);
@@ -100,6 +102,11 @@ const TriviaGame: React.FC = () => {
     setAnsweredQuestions(new Set());
   };
 
+  // Question Review Screen
+  if (showReview) {
+    return <QuestionReview onBack={() => setShowReview(false)} />;
+  }
+
   // Welcome Screen
   if (!gameStarted) {
     return (
@@ -155,12 +162,21 @@ const TriviaGame: React.FC = () => {
             </p>
           </div>
 
-          <button
-            onClick={handleStartGame}
-            className="bg-yellow-400 hover:bg-yellow-300 text-red-800 font-bold text-3xl py-6 px-12 rounded-full shadow-2xl transform hover:scale-110 transition-all"
-          >
-            ¡Comenzar! 🎉
-          </button>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <button
+              onClick={handleStartGame}
+              className="bg-yellow-400 hover:bg-yellow-300 text-red-800 font-bold text-3xl py-6 px-12 rounded-full shadow-2xl transform hover:scale-110 transition-all"
+            >
+              ¡Comenzar! 🎉
+            </button>
+            <button
+              onClick={() => setShowReview(true)}
+              className="bg-white/20 hover:bg-white/30 text-white font-bold text-xl py-4 px-8 rounded-full shadow-xl transform hover:scale-105 transition-all flex items-center justify-center gap-2"
+            >
+              <BookOpen size={24} />
+              Revisar Preguntas
+            </button>
+          </div>
         </div>
       </div>
     );
