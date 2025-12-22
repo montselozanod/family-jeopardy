@@ -10,6 +10,17 @@ interface Team {
   color: string;
 }
 
+const TEAM_COLORS = [
+  'bg-red-500',
+  'bg-green-500', 
+  'bg-blue-500',
+  'bg-yellow-500',
+  'bg-purple-500',
+  'bg-pink-500',
+  'bg-orange-500',
+  'bg-teal-500'
+];
+
 const TriviaGame: React.FC = () => {
   const [gameStarted, setGameStarted] = useState<boolean>(false);
   const [currentCategory, setCurrentCategory] = useState<Category | null>(null);
@@ -21,6 +32,28 @@ const TriviaGame: React.FC = () => {
     { id: 2, name: 'Equipo 2', score: 0, color: 'bg-green-500' },
     { id: 3, name: 'Equipo 3', score: 0, color: 'bg-blue-500' }
   ]);
+
+  const handleAddTeam = (): void => {
+    if (teams.length >= TEAM_COLORS.length) return;
+    const newId = Math.max(...teams.map(t => t.id)) + 1;
+    setTeams([...teams, {
+      id: newId,
+      name: `Equipo ${teams.length + 1}`,
+      score: 0,
+      color: TEAM_COLORS[teams.length]
+    }]);
+  };
+
+  const handleRemoveTeam = (teamId: number): void => {
+    if (teams.length <= 2) return;
+    setTeams(teams.filter(t => t.id !== teamId));
+  };
+
+  const handleTeamNameChange = (teamId: number, newName: string): void => {
+    setTeams(teams.map(team => 
+      team.id === teamId ? { ...team, name: newName } : team
+    ));
+  };
 
   const handleStartGame = (): void => {
     setGameStarted(true);
@@ -71,7 +104,7 @@ const TriviaGame: React.FC = () => {
   if (!gameStarted) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-red-700 via-green-700 to-red-800 flex items-center justify-center p-8">
-        <div className="text-center max-w-3xl">
+        <div className="text-center max-w-3xl w-full">
           <div className="flex justify-center mb-6">
             <Sparkles className="w-20 h-20 text-yellow-300 animate-pulse" />
           </div>
@@ -81,9 +114,47 @@ const TriviaGame: React.FC = () => {
           <h2 className="text-4xl text-yellow-200 mb-8">
             Posada 2025 🎄
           </h2>
-          <p className="text-2xl text-white mb-12">
-            ¡Pon a prueba tu conocimiento sobre nuestra familia!
-          </p>
+          
+          {/* Team Configuration */}
+          <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-6 mb-8">
+            <h3 className="text-2xl font-bold text-white mb-4">Configura los Equipos</h3>
+            <div className="space-y-3">
+              {teams.map((team, index) => (
+                <div key={team.id} className="flex items-center gap-3">
+                  <div className={`w-4 h-4 rounded-full ${team.color}`}></div>
+                  <input
+                    type="text"
+                    value={team.name}
+                    onChange={(e) => handleTeamNameChange(team.id, e.target.value)}
+                    className="flex-1 px-4 py-3 rounded-lg text-lg font-semibold text-gray-800 bg-white"
+                    placeholder={`Equipo ${index + 1}`}
+                  />
+                  {teams.length > 2 && (
+                    <button
+                      onClick={() => handleRemoveTeam(team.id)}
+                      className="bg-red-500 hover:bg-red-600 text-white w-10 h-10 rounded-lg font-bold text-xl"
+                    >
+                      ×
+                    </button>
+                  )}
+                </div>
+              ))}
+            </div>
+            
+            {teams.length < TEAM_COLORS.length && (
+              <button
+                onClick={handleAddTeam}
+                className="mt-4 bg-white/30 hover:bg-white/40 text-white font-bold py-3 px-6 rounded-lg w-full text-lg"
+              >
+                + Agregar Equipo
+              </button>
+            )}
+            
+            <p className="text-white/70 text-sm mt-3">
+              Mínimo 2 equipos, máximo {TEAM_COLORS.length} equipos
+            </p>
+          </div>
+
           <button
             onClick={handleStartGame}
             className="bg-yellow-400 hover:bg-yellow-300 text-red-800 font-bold text-3xl py-6 px-12 rounded-full shadow-2xl transform hover:scale-110 transition-all"
@@ -189,7 +260,12 @@ const TriviaGame: React.FC = () => {
                 Reiniciar Juego
               </button>
             </div>
-            <div className="grid grid-cols-3 gap-6">
+            <div className={`grid gap-6 ${
+              teams.length === 2 ? 'grid-cols-2' : 
+              teams.length === 3 ? 'grid-cols-3' : 
+              teams.length === 4 ? 'grid-cols-2 md:grid-cols-4' : 
+              'grid-cols-2 md:grid-cols-4 lg:grid-cols-4'
+            }`}>
               {teams.map(team => (
                 <div key={team.id} className={`${team.color} rounded-2xl p-6 text-white shadow-lg`}>
                   <div className="text-xl font-semibold mb-2">{team.name}</div>
@@ -211,16 +287,28 @@ const TriviaGame: React.FC = () => {
                 answeredQuestions.has(`${category.id}-${index}`)
               ).length;
               const remainingQuestions = category.questions.length - answeredInCategory;
+              const isCompleted = remainingQuestions === 0;
               
               return (
                 <button
                   key={category.id}
-                  onClick={() => handleCategorySelect(category)}
-                  className={`${category.color} hover:opacity-90 text-white rounded-2xl p-8 shadow-xl transform hover:scale-105 transition-all`}
+                  onClick={() => !isCompleted && handleCategorySelect(category)}
+                  disabled={isCompleted}
+                  className={`${isCompleted ? 'bg-gray-500' : category.color} ${isCompleted ? 'opacity-60 cursor-not-allowed' : 'hover:opacity-90 transform hover:scale-105'} text-white rounded-2xl p-8 shadow-xl transition-all relative overflow-hidden`}
                 >
-                  <div className="text-3xl font-bold mb-2">{category.name}</div>
+                  {isCompleted && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/30">
+                      <span className="text-6xl">✓</span>
+                    </div>
+                  )}
+                  <div className={`text-3xl font-bold mb-2 ${isCompleted ? 'line-through opacity-70' : ''}`}>
+                    {category.name}
+                  </div>
                   <div className="text-lg opacity-90">
-                    {remainingQuestions} de {category.questions.length} preguntas restantes
+                    {isCompleted 
+                      ? '¡Completada!' 
+                      : `${remainingQuestions} de ${category.questions.length} preguntas restantes`
+                    }
                   </div>
                 </button>
               );
