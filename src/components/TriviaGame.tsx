@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Sparkles, Trophy, BookOpen } from 'lucide-react';
 import { categories, getQuestionsByCategory, type Question, type Category } from '../triviaData';
 import QuestionReview from './QuestionReview';
+import CategoryWheel from './CategoryWheel';
 
 // Type Definitions
 interface Team {
@@ -25,6 +26,7 @@ const TEAM_COLORS = [
 const TriviaGame: React.FC = () => {
   const [gameStarted, setGameStarted] = useState<boolean>(false);
   const [showReview, setShowReview] = useState<boolean>(false);
+  const [showWheel, setShowWheel] = useState<boolean>(false);
   const [currentCategory, setCurrentCategory] = useState<Category | null>(null);
   const [currentQuestion, setCurrentQuestion] = useState<Question | null>(null);
   const [showAnswer, setShowAnswer] = useState<boolean>(false);
@@ -98,6 +100,24 @@ const TriviaGame: React.FC = () => {
     setCurrentCategory(null);
     setShowAnswer(false);
     setAnsweredQuestions(new Set());
+  };
+
+  // Get completed categories (all questions answered)
+  const getCompletedCategories = (): string[] => {
+    return categories
+      .filter(category => {
+        const categoryQuestions = getQuestionsByCategory(category.id);
+        const answeredInCategory = categoryQuestions.filter(q => 
+          answeredQuestions.has(q.id.toString())
+        ).length;
+        return answeredInCategory === categoryQuestions.length;
+      })
+      .map(c => c.id);
+  };
+
+  const handleWheelCategorySelected = (category: Category): void => {
+    setShowWheel(false);
+    setCurrentCategory(category);
   };
 
   // Question Review Screen
@@ -260,6 +280,16 @@ const TriviaGame: React.FC = () => {
     return (
       <div className="min-h-screen bg-gradient-to-br from-green-800 via-red-800 to-green-900 p-8">
         <div className="max-w-7xl mx-auto">
+          {/* Category Wheel Modal */}
+          {showWheel && (
+            <CategoryWheel
+              categories={categories}
+              onCategorySelected={handleWheelCategorySelected}
+              onClose={() => setShowWheel(false)}
+              disabledCategories={getCompletedCategories()}
+            />
+          )}
+
           {/* Header with Scores */}
           <div className="bg-white rounded-3xl p-8 mb-8 shadow-2xl">
             <div className="flex justify-between items-center mb-6">
@@ -292,7 +322,13 @@ const TriviaGame: React.FC = () => {
           {/* Categories */}
           <div className="text-center mb-8">
             <h2 className="text-4xl font-bold text-white mb-2">Selecciona una Categoría</h2>
-            <p className="text-xl text-yellow-200">¡Escoge sabiamente! 🎯</p>
+            <p className="text-xl text-yellow-200 mb-4">¡Escoge sabiamente! 🎯</p>
+            <button
+              onClick={() => setShowWheel(true)}
+              className="bg-yellow-400 hover:bg-yellow-300 text-gray-800 font-bold text-xl py-4 px-8 rounded-full shadow-xl transform hover:scale-105 transition-all animate-pulse"
+            >
+              🎰 ¡Girar la Ruleta!
+            </button>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
