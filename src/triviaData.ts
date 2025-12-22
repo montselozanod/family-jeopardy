@@ -56,8 +56,7 @@ export const questions: Question[] = [
   { id: 26, categoryId: 'anecdotas', q: '¿En qué año tuvimos que pasar la fiesta de Navidad en el hospital?', a: '2010', points: 100 },
   { id: 27, categoryId: 'anecdotas', q: 'En el cumpleaños de pesca de Samuel, ¿cuántos peces se pescaron en total?', a: '0 (cero) - ¡Ni uno!', points: 100 },
   { id: 28, categoryId: 'anecdotas', q: '¿A quién olvidaron en el cumpleaños de pesca de Samuel?', a: 'A Farid', points: 150 },
-  { id: 29, categoryId: 'anecdotas', q: '¿Quién rompió una maceta en el hotel de San Antonio?', a: 'Enitis', points: 200 },
-  { id: 30, categoryId: 'anecdotas', q: '¿Qué familias estuvieron a punto de hundirse en un submarino en Islas Caimán?', a: 'Familia Dieck Assam y Lozano Dieck', points: 200 },
+  { id: 29, categoryId: 'anecdotas', q: '¿Qué familias estuvieron a punto de hundirse en un submarino en Islas Caimán?', a: 'Familia Dieck Assam y Lozano Dieck', points: 200 },
   { id: 31, categoryId: 'anecdotas', q: '¿Quién tuvo que hacer 50 push-ups como castigo en el campamento porque le acusaron de tirar el basurero?', a: 'Mi Alf', points: 250 },
   { id: 32, categoryId: 'anecdotas', q: '¿Si el Alf no tiro el basurero, quien realmente lo hizo?', a: 'Farid', points: 250 },
   { id: 33, categoryId: 'anecdotas', q: '¿Quién subió una botella de vodka a la silla del abuelito en el crucero? (Él pensó que era agua)', a: 'Coki', points: 250 },
@@ -89,41 +88,42 @@ export const questions: Question[] = [
   { id: 57, categoryId: 'cultura-familiar', q: '¿Cómo se llamaba el kinder cerca de casa de Siti al que fueron muchos primos?', a: 'Kinder Gabriela Mistral', points: 300 },
   { id: 58, categoryId: 'cultura-familiar', q: '¿Qué familiar tiene DOS cumpleaños? ¿En qué fechas?', a: 'Abuelito Chano - 4 de julio y 18 de agosto', points: 400 },
   
-  // Lugares y Viajes (59-67)
+  // Lugares y Viajes (59-68)
   { id: 59, categoryId: 'lugares', q: '¿Cuál es la dirección exacta de la casa de la familia Dieck Assad de McAllen?', a: 'Esperanza 600', points: 100 },
   { id: 60, categoryId: 'lugares', q: 'Menciona el nombre de uno de los hoteles donde se hospedaba la familia en la Isla del Padre', a: 'El Tiki o La Internacional', points: 150 },
   { id: 61, categoryId: 'lugares', q: '¿A quién olvidaron en la cima del Cerro de la Bufa en Zacatecas?', a: 'A la tía Salma', points: 150 },
   { id: 62, categoryId: 'lugares', q: '¿Cómo se llamaba el hotel en San Antonio donde siempre nos quedábamos?', a: 'Home Gate', points: 200 },
-  { id: 63, categoryId: 'lugares', q: '¿En qué lugar celebraron Siti y el abuelito sus 50 años de casados?', a: 'En el Palestino', points: 200 },
-  { id: 64, categoryId: 'lugares', q: '¿Cómo se llamaba el crucero de año nuevo?', a: 'Rhapsody of the Seas', points: 200 },
-  { id: 65, categoryId: 'lugares', q: '¿Cómo se llamaba el supermercado frente a la iglesia El Rosario cerca de casa de Siti?', a: 'La Palanca (después se convirtió en Super Roma)', points: 250 },
-  { id: 66, categoryId: 'lugares', q: '¿Cómo se llamaba la guía de turistas en el viaje a Rusia? ¿Qué pensábamos que era?', a: 'Varda - pensábamos que era espía rusa', points: 300 },
-  { id: 67, categoryId: 'lugares', q: '¿Qué apodo le puso tío Pedro a la ciudad de Monterrey?', a: '"La caldera del diablo"', points: 400 },
+  { id: 63, categoryId: 'lugares', q: '¿Quién rompió una maceta en el hotel de San Antonio?', a: 'Enitis', points: 200 },
+  { id: 64, categoryId: 'lugares', q: '¿En qué lugar celebraron Siti y el abuelito sus 50 años de casados?', a: 'En el Palestino', points: 200 },
+  { id: 65, categoryId: 'lugares', q: '¿Cómo se llamaba el crucero de año nuevo?', a: 'Rhapsody of the Seas', points: 200 },
+  { id: 66, categoryId: 'lugares', q: '¿Cómo se llamaba el supermercado frente a la iglesia El Rosario cerca de casa de Siti?', a: 'La Palanca (después se convirtió en Super Roma)', points: 250 },
+  { id: 67, categoryId: 'lugares', q: '¿Cómo se llamaba la guía de turistas en el viaje a Rusia? ¿Qué pensábamos que era?', a: 'Varda - pensábamos que era espía rusa', points: 300 },
+  { id: 68, categoryId: 'lugares', q: '¿Qué apodo le puso tío Pedro a la ciudad de Monterrey?', a: '"La caldera del diablo"', points: 400 },
 
-  // Personajes Memorables (68-79)
-  { id: 68, categoryId: 'personajes', q: '¿Cómo se llama la mascota de Lulita y Alessandro?', a: 'Merlino', points: 100 },
-  { id: 69, categoryId: 'personajes', q: 'Menciona DOS familiares que sean aficionados de los Tigres', a: 'Moris y Farid', points: 100 },
-  { id: 70, categoryId: 'personajes', q: '¿Quién manejaba el puesto de pasteles en la kermes del Colegio Regiomontano?', a: 'Siti', points: 150 },
-  { id: 71, categoryId: 'personajes', q: '¿Qué tío es cinéfilo por excelencia y con quien muchos primos se juntaban a ver películas?', a: 'Tío Pedro', points: 150 },
-  { id: 72, categoryId: 'personajes', q: '¿Cómo se llamaba el profesor del Regio Contry que iba a quejarse con Siti de la conducta de sus hijos?', a: 'El profesor Roibal', points: 200 },
-  { id: 73, categoryId: 'personajes', q: '¿Cómo se llamaba el chofer que hacía destrozos en las paredes del Centro Médico del Hospital San José?', a: 'Miguel / Miguelón', points: 200 },
-  { id: 74, categoryId: 'personajes', q: '¿Qué miembro de la familia jugó en la liga mayor de los Borregos y pertence al Salón de la Fama del Tec?', a: 'Tío Tony', points: 200 },
-  { id: 75, categoryId: 'personajes', q: '¿Quién era él/la gran consentida de Buchita?', a: 'Marce', points: 250 },
-  { id: 76, categoryId: 'personajes', q: '¿Qué sacerdote casó a Neto y Wendy?', a: 'Padre Pedro', points: 250 },
-  { id: 77, categoryId: 'personajes', q: '¿Cómo se llamaba la primera esposa del Tío Momo?', a: 'Tía Bellita', points: 300 },
-  { id: 78, categoryId: 'personajes', q: '¿Cuál miembro de la familia fue Presidente del club de fans de One Direction en México?', a: 'Mapy', points: 300 },
-  { id: 79, categoryId: 'personajes', q: '¿Qué familiar fue embajador de México ante la Unión Europea?', a: 'Tía Luly', points: 300 },
+  // Personajes Memorables (69-80)
+  { id: 69, categoryId: 'personajes', q: '¿Cómo se llama la mascota de Lulita y Alessandro?', a: 'Merlino', points: 100 },
+  { id: 70, categoryId: 'personajes', q: 'Menciona DOS familiares que sean aficionados de los Tigres', a: 'Moris y Farid', points: 100 },
+  { id: 71, categoryId: 'personajes', q: '¿Quién manejaba el puesto de pasteles en la kermes del Colegio Regiomontano?', a: 'Siti', points: 150 },
+  { id: 72, categoryId: 'personajes', q: '¿Qué tío es cinéfilo por excelencia y con quien muchos primos se juntaban a ver películas?', a: 'Tío Pedro', points: 150 },
+  { id: 73, categoryId: 'personajes', q: '¿Cómo se llamaba el profesor del Regio Contry que iba a quejarse con Siti de la conducta de sus hijos?', a: 'El profesor Roibal', points: 200 },
+  { id: 74, categoryId: 'personajes', q: '¿Cómo se llamaba el chofer que hacía destrozos en las paredes del Centro Médico del Hospital San José?', a: 'Miguel / Miguelón', points: 200 },
+  { id: 75, categoryId: 'personajes', q: '¿Qué miembro de la familia jugó en la liga mayor de los Borregos y pertence al Salón de la Fama del Tec?', a: 'Tío Tony', points: 200 },
+  { id: 76, categoryId: 'personajes', q: '¿Quién era él/la gran consentida de Buchita?', a: 'Marce', points: 250 },
+  { id: 77, categoryId: 'personajes', q: '¿Qué sacerdote casó a Neto y Wendy?', a: 'Padre Pedro', points: 250 },
+  { id: 78, categoryId: 'personajes', q: '¿Cómo se llamaba la primera esposa del Tío Momo?', a: 'Tía Bellita', points: 300 },
+  { id: 79, categoryId: 'personajes', q: '¿Cuál miembro de la familia fue Presidente del club de fans de One Direction en México?', a: 'Mapy', points: 300 },
+  { id: 80, categoryId: 'personajes', q: '¿Qué familiar fue embajador de México ante la Unión Europea?', a: 'Tía Luly', points: 300 },
 
-  // Retos Especiales (80-88)
-  { id: 80, categoryId: 'retos-especiales', q: '🎵 RETO MUSICAL: Canten la canción de Mapy que inventó Tío Neto', a: '"Ay María Paula... qué niña tan buena, yo la quiero mucho, mucho de verdad"', points: 200 },
-  { id: 81, categoryId: 'retos-especiales', q: '¿Cómo se llama y en qué ciudad nació la nieta mayor de Siti?', a: 'La Nena - Nació en Austin', points: 250 },
-  { id: 82, categoryId: 'retos-especiales', q: '¿Qué dos bisnietos de Siti cumplen años el mismo día?', a: 'Tony bebé y Elen', points: 250 },
-  { id: 83, categoryId: 'retos-especiales', q: '¿De qué trataba la obra de Navidad que actuamos de niños dirigida por Josephine y Lulita?', a: 'Un niño rico es llevado por ángeles a casa de una familia pobre para enseñarle que la Navidad no se trata de regalos', points: 300 },
-  { id: 84, categoryId: 'retos-especiales', q: '¿Cómo se llamaba el campamento de basquetbol al que íbamos de niños?', a: 'Spurs o Crusander', points: 300 },
-  { id: 85, categoryId: 'retos-especiales', q: 'En la obra de Navidad, ¿quiénes eran la familia rica y quiénes la familia pobre?', a: 'FAMILIA RICA: Neni, Samuel y Farid | FAMILIA POBRE: Flety, Mariangela y Marce', points: 350 },
-  { id: 86, categoryId: 'retos-especiales', q: '¿A qué empresa de tecnología se fue a trabajar Samy cuando se mudó a Austin?', a: 'National Instruments', points: 350 },
-  { id: 87, categoryId: 'retos-especiales', q: 'Coki y sus amigos le pagaron un boleto de avión a este personaje para visitar a Tafich en Vancouver. ¿Quién era y qué dijo cuando finalmente lo corrió Tafich?', a: 'Manuel Pichón - "Aquí están tus llaves, tiradas a la suerte como me tiraste a mí, puñetas"', points: 350 },
-  { id: 88, categoryId: 'retos-especiales', q: '🎙️ PREGUNTA FINAL: ¿Quién es el compañero de podcast del tío Mauricio?', a: 'Alex Porras', points: 400 }
+  // Retos Especiales (81-89)
+  { id: 81, categoryId: 'retos-especiales', q: '🎵 RETO MUSICAL: Canten la canción de Mapy que inventó Tío Neto', a: '"Ay María Paula... qué niña tan buena, yo la quiero mucho, mucho de verdad"', points: 200 },
+  { id: 82, categoryId: 'retos-especiales', q: '¿Cómo se llama y en qué ciudad nació la nieta mayor de Siti?', a: 'La Nena - Nació en Austin', points: 250 },
+  { id: 83, categoryId: 'retos-especiales', q: '¿Qué dos bisnietos de Siti cumplen años el mismo día?', a: 'Tony bebé y Elen', points: 250 },
+  { id: 84, categoryId: 'retos-especiales', q: '¿De qué trataba la obra de Navidad que actuamos de niños dirigida por Josephine y Lulita?', a: 'Un niño rico es llevado por ángeles a casa de una familia pobre para enseñarle que la Navidad no se trata de regalos', points: 300 },
+  { id: 85, categoryId: 'retos-especiales', q: '¿Cómo se llamaba el campamento de basquetbol al que íbamos de niños?', a: 'Spurs o Crusander', points: 300 },
+  { id: 86, categoryId: 'retos-especiales', q: 'En la obra de Navidad, ¿quiénes eran la familia rica y quiénes la familia pobre?', a: 'FAMILIA RICA: Neni, Samuel y Farid | FAMILIA POBRE: Flety, Mariangela y Marce', points: 350 },
+  { id: 87, categoryId: 'retos-especiales', q: '¿A qué empresa de tecnología se fue a trabajar Samy cuando se mudó a Austin?', a: 'National Instruments', points: 350 },
+  { id: 88, categoryId: 'retos-especiales', q: 'Coki y sus amigos le pagaron un boleto de avión a este personaje para visitar a Tafich en Vancouver. ¿Quién era y qué dijo cuando finalmente lo corrió Tafich?', a: 'Manuel Pichón - "Aquí están tus llaves, tiradas a la suerte como me tiraste a mí, puñetas"', points: 350 },
+  { id: 89, categoryId: 'retos-especiales', q: '🎙️ PREGUNTA FINAL: ¿Quién es el compañero de podcast del tío Mauricio?', a: 'Alex Porras', points: 400 }
 ];
 
 // Helper function to get questions by category
