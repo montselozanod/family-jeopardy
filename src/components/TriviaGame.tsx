@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Sparkles, Trophy, BookOpen } from 'lucide-react';
-import { categories, type Question, type Category } from '../triviaData';
+import { categories, getQuestionsByCategory, type Question, type Category } from '../triviaData';
 import QuestionReview from './QuestionReview';
 
 // Type Definitions
@@ -83,11 +83,9 @@ const TriviaGame: React.FC = () => {
   };
 
   const handleBack = (): void => {
-    if (currentQuestion && currentCategory) {
-      // Marcar la pregunta como respondida usando categoryId + índice
-      const questionIndex = currentCategory.questions.findIndex(q => q.q === currentQuestion.q);
-      const questionKey = `${currentCategory.id}-${questionIndex}`;
-      setAnsweredQuestions(prev => new Set([...prev, questionKey]));
+    if (currentQuestion) {
+      // Marcar la pregunta como respondida usando el id de la pregunta
+      setAnsweredQuestions(prev => new Set([...prev, currentQuestion.id.toString()]));
     }
     setCurrentQuestion(null);
     setCurrentCategory(null);
@@ -299,10 +297,11 @@ const TriviaGame: React.FC = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {categories.map(category => {
-              const answeredInCategory = category.questions.filter((_, index) => 
-                answeredQuestions.has(`${category.id}-${index}`)
+              const categoryQuestions = getQuestionsByCategory(category.id);
+              const answeredInCategory = categoryQuestions.filter(q => 
+                answeredQuestions.has(q.id.toString())
               ).length;
-              const remainingQuestions = category.questions.length - answeredInCategory;
+              const remainingQuestions = categoryQuestions.length - answeredInCategory;
               const isCompleted = remainingQuestions === 0;
               
               return (
@@ -323,7 +322,7 @@ const TriviaGame: React.FC = () => {
                   <div className="text-lg opacity-90">
                     {isCompleted 
                       ? '¡Completada!' 
-                      : `${remainingQuestions} de ${category.questions.length} preguntas restantes`
+                      : `${remainingQuestions} de ${categoryQuestions.length} preguntas restantes`
                     }
                   </div>
                 </button>
@@ -356,13 +355,12 @@ const TriviaGame: React.FC = () => {
 
         {/* Questions */}
         <div className="grid grid-cols-1 gap-6">
-          {currentCategory.questions.map((question, index) => {
-            const questionKey = `${currentCategory.id}-${index}`;
-            const isAnswered = answeredQuestions.has(questionKey);
+          {getQuestionsByCategory(currentCategory.id).map((question, index) => {
+            const isAnswered = answeredQuestions.has(question.id.toString());
             
             return (
               <button
-                key={index}
+                key={question.id}
                 onClick={() => !isAnswered && handleQuestionSelect(question)}
                 disabled={isAnswered}
                 className={`rounded-2xl p-8 shadow-xl transition-all text-left ${
