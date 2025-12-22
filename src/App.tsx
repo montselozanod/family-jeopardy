@@ -3,20 +3,20 @@ import GameBoard from './components/GameBoard';
 import QuestionModal from './components/QuestionModal';
 import ScoreBoard from './components/ScoreBoard';
 import { initialCategories } from './gameData';
-import type { Question, Category, Player } from './types';
+import type { Question, Category, Team } from './types';
 import './App.css';
 
 function App() {
   const [categories, setCategories] = useState<Category[]>(initialCategories);
-  const [players, setPlayers] = useState<Player[]>([
-    { id: 'p1', name: 'Player 1', score: 0 },
-    { id: 'p2', name: 'Player 2', score: 0 },
-    { id: 'p3', name: 'Player 3', score: 0 }
+  const [teams, setTeams] = useState<Team[]>([
+    { id: 't1', name: 'Team 1', score: 0 },
+    { id: 't2', name: 'Team 2', score: 0 },
+    { id: 't3', name: 'Team 3', score: 0 }
   ]);
-  const [currentPlayer, setCurrentPlayer] = useState(0);
+  const [currentTeam, setCurrentTeam] = useState(0);
   const [selectedQuestion, setSelectedQuestion] = useState<Question | null>(null);
   const [gameStarted, setGameStarted] = useState(false);
-  const [playerNames, setPlayerNames] = useState(['Player 1', 'Player 2', 'Player 3']);
+  const [teamNames, setTeamNames] = useState(['Team 1', 'Team 2', 'Team 3']);
 
   const handleQuestionClick = (question: Question) => {
     setSelectedQuestion(question);
@@ -35,31 +35,31 @@ function App() {
     );
 
     if (correct) {
-      setPlayers(prevPlayers =>
-        prevPlayers.map((player, index) =>
-          index === currentPlayer
-            ? { ...player, score: player.score + selectedQuestion.value }
-            : player
+      setTeams(prevTeams =>
+        prevTeams.map((team, index) =>
+          index === currentTeam
+            ? { ...team, score: team.score + selectedQuestion.value }
+            : team
         )
       );
     } else {
-      setPlayers(prevPlayers =>
-        prevPlayers.map((player, index) =>
-          index === currentPlayer
-            ? { ...player, score: player.score - selectedQuestion.value }
-            : player
+      setTeams(prevTeams =>
+        prevTeams.map((team, index) =>
+          index === currentTeam
+            ? { ...team, score: team.score - selectedQuestion.value }
+            : team
         )
       );
     }
 
-    setCurrentPlayer((currentPlayer + 1) % players.length);
+    setCurrentTeam((currentTeam + 1) % teams.length);
   };
 
   const handleStartGame = () => {
-    setPlayers(prevPlayers =>
-      prevPlayers.map((player, index) => ({
-        ...player,
-        name: playerNames[index] || `Player ${index + 1}`
+    setTeams(prevTeams =>
+      prevTeams.map((team, index) => ({
+        ...team,
+        name: teamNames[index] || `Team ${index + 1}`
       }))
     );
     setGameStarted(true);
@@ -67,36 +67,36 @@ function App() {
 
   const handleResetGame = () => {
     setCategories(initialCategories);
-    setPlayers([
-      { id: 'p1', name: playerNames[0] || 'Player 1', score: 0 },
-      { id: 'p2', name: playerNames[1] || 'Player 2', score: 0 },
-      { id: 'p3', name: playerNames[2] || 'Player 3', score: 0 }
+    setTeams([
+      { id: 't1', name: teamNames[0] || 'Team 1', score: 0 },
+      { id: 't2', name: teamNames[1] || 'Team 2', score: 0 },
+      { id: 't3', name: teamNames[2] || 'Team 3', score: 0 }
     ]);
-    setCurrentPlayer(0);
+    setCurrentTeam(0);
     setSelectedQuestion(null);
   };
 
-  const handlePlayerNameChange = (index: number, name: string) => {
-    const newNames = [...playerNames];
+  const handleTeamNameChange = (index: number, name: string) => {
+    const newNames = [...teamNames];
     newNames[index] = name;
-    setPlayerNames(newNames);
+    setTeamNames(newNames);
   };
 
   if (!gameStarted) {
     return (
       <div className="app">
         <div className="setup-container">
-          <h1 className="game-title">Family Jeopardy!</h1>
+          <h1 className="game-title">🎯 Family Trivia!</h1>
           <div className="setup-form">
-            <h2>Enter Player Names</h2>
+            <h2>Enter Team Names</h2>
             {[0, 1, 2].map((index) => (
               <div key={index} className="player-input">
-                <label>Player {index + 1}:</label>
+                <label>Team {index + 1}:</label>
                 <input
                   type="text"
-                  value={playerNames[index]}
-                  onChange={(e) => handlePlayerNameChange(index, e.target.value)}
-                  placeholder={`Player ${index + 1}`}
+                  value={teamNames[index]}
+                  onChange={(e) => handleTeamNameChange(index, e.target.value)}
+                  placeholder={`Team ${index + 1}`}
                 />
               </div>
             ))}
@@ -112,13 +112,13 @@ function App() {
   return (
     <div className="app">
       <header className="app-header">
-        <h1 className="game-title">Family Jeopardy!</h1>
+        <h1 className="game-title">🎯 Family Trivia!</h1>
         <button className="reset-button" onClick={handleResetGame}>
           Reset Game
         </button>
       </header>
 
-      <ScoreBoard players={players} currentPlayer={currentPlayer} />
+      <ScoreBoard teams={teams} currentTeam={currentTeam} />
       
       <GameBoard
         categories={categories}
@@ -130,7 +130,7 @@ function App() {
           question={selectedQuestion}
           onClose={() => setSelectedQuestion(null)}
           onAnswer={handleAnswer}
-          currentPlayerName={players[currentPlayer].name}
+          currentTeamName={teams[currentTeam].name}
         />
       )}
     </div>

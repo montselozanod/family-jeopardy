@@ -1,13 +1,13 @@
-# Family Jeopardy
+# Family Trivia
 
-A React application using TypeScript for a family-friendly Jeopardy game. Built with Vite for fast development and optimized builds.
+A React application using TypeScript for a family-friendly team trivia game. Built with Vite for fast development and optimized builds.
 
 ## Features
 
-- 🎮 Interactive Jeopardy game board with 6 categories and 5 questions each
-- 👥 Support for multiple players (up to 3 by default)
+- 🎯 Interactive trivia game board with 6 categories and 5 questions each
+- 👥 Support for multiple teams (up to 3 by default)
 - 💯 Automatic score tracking with points added for correct answers and deducted for incorrect ones
-- 🎨 Classic Jeopardy-themed UI with blue and gold colors
+- 🎨 Modern trivia-themed UI with blue and gold colors
 - 📱 Responsive design that works on desktop and mobile devices
 - 🔄 Reset game functionality to start over
 
@@ -21,7 +21,7 @@ The game includes questions from 6 different categories:
 - Sports
 - Literature
 
-Each category has 5 questions worth $200, $400, $600, $800, and $1000.
+Each category has 5 questions worth 200, 400, 600, 800, and 1000 points.
 
 ## Getting Started
 
@@ -57,12 +57,12 @@ npm run preview
 
 ## How to Play
 
-1. **Setup**: Enter the names of the players (up to 3 players)
+1. **Setup**: Enter the names of the teams (up to 3 teams)
 2. **Start Game**: Click "Start Game" to begin
-3. **Select Question**: Click on any dollar amount on the board
+3. **Select Question**: Click on any point value on the board
 4. **Answer**: Read the question, then click "Show Answer" to reveal the answer
-5. **Score**: Mark whether the current player answered correctly or incorrectly
-6. **Continue**: The next player's turn begins automatically
+5. **Score**: Mark whether the current team answered correctly or incorrectly
+6. **Continue**: The next team's turn begins automatically
 7. **Reset**: Click "Reset Game" at any time to start over
 
 ## Technology Stack
@@ -95,9 +95,9 @@ src/
 
 Edit `src/gameData.ts` to modify questions, categories, or point values.
 
-### Changing Number of Players
+### Changing Number of Teams
 
-Modify the initial state in `src/App.tsx` to adjust the number of players.
+Modify the initial state in `src/App.tsx` to adjust the number of teams.
 
 ### Styling
 

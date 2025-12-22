@@ -12,7 +12,7 @@ export interface Category {
   questions: Question[];
 }
 
-export interface Player {
+export interface Team {
   id: string;
   name: string;
   score: number;
@@ -20,7 +20,7 @@ export interface Player {
 
 export interface GameState {
   categories: Category[];
-  players: Player[];
-  currentPlayer: number;
+  teams: Team[];
+  currentTeam: number;
   selectedQuestion: Question | null;
 }
