@@ -94,7 +94,6 @@ export const questions: Question[] = [
   { id: 58, categoryId: 'cultura-familiar', q: '¿Qué familiar tiene DOS cumpleaños? ¿En qué fechas?', a: 'Abuelito Chano - 4 de julio y 18 de agosto', points: 400 },
   { id: 83, categoryId: 'cultura-familiar', q: '¿Qué dos bisnietos de Siti cumplen años el mismo día?', a: 'Tony bebé y Elen', points: 500 },
 
-
   
   // Lugares y Viajes (59-68)
   { id: 59, categoryId: 'lugares', q: '¿Cuál es la dirección exacta de la casa de la familia Dieck Assad de McAllen?', a: 'Esperanza 600', points: 100 },
@@ -106,7 +105,7 @@ export const questions: Question[] = [
   { id: 64, categoryId: 'lugares', q: '¿En qué lugar celebraron Siti y el abuelito sus 50 años de casados?', a: 'En el Palestino', points: 200 },
   { id: 65, categoryId: 'lugares', q: '¿Cómo se llamaba el crucero de año nuevo?', a: 'Rhapsody of the Seas', points: 200 },
   { id: 66, categoryId: 'lugares', q: '¿Cómo se llamaba el supermercado frente a la iglesia El Rosario cerca de casa de Siti?', a: 'La Palanca (después se convirtió en Super Roma)', points: 250 },
-  { id: 67, categoryId: 'lugares', q: '¿Cómo se llamaba la guía de turistas en el viaje a Rusia? ¿Qué pensábamos que era?', a: 'Varda - pensábamos que era espía rusa', points: 300 },
+  { id: 67, categoryId: 'lugares', q: '¿Cómo se llamaba la guía del viaje a Rusia y qué hizo Pedrito para que creyéramos que era de la KGB?', a: 'Varda - Pedrito entró con su pasaporte americano', points: 300 },
   { id: 68, categoryId: 'lugares', q: '¿Qué apodo le puso tío Pedro a la ciudad de Monterrey?', a: '"La caldera del diablo"', points: 400 },
 
   // Personajes Memorables (69-80)
