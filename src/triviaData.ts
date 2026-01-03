@@ -62,6 +62,9 @@ export const questions: Question[] = [
   { id: 27, categoryId: 'historia', q: '¿Qué presidente de México era amigo personal del abuelito Chano?', a: 'Gustavo Díaz Ordaz', points: 350 },
   { id: 28, categoryId: 'historia', q: '¿A qué líder internacional conoció el abuelito Chano?', a: 'Fidel Castro', points: 350 },
   { id: 29, categoryId: 'historia', q: '¿Cómo se llamaba la tienda de telas del abuelito Rachid?', a: 'Telas Primavera', points: 400 },
+  { id: 109, categoryId: 'historia', q: 'Este familiar pasó del “nunca iré a Guanajuato” al “sí acepto” en Guanajuato. ¿Quién fue?', a: 'Coki', points: 400 },
+  { id: 110, categoryId: 'historia', q: '¿Qué familiar podría reclamar el título de “motor oficial del chat” por ser quien más mensajes ha enviado desde 2014?', a: 'Siti', points: 450 },
+
 
   // Anécdotas Legendarias (30-49)
   { id: 30, categoryId: 'anecdotas', q: '¿En qué año tuvimos que pasar la fiesta de Navidad en el hospital?', a: '2010', points: 100 },
@@ -96,6 +99,7 @@ export const questions: Question[] = [
   { id: 56, categoryId: 'cultura-familiar', q: '¿Qué significa "marmaja"?', a: 'Dinero / Alguien con dinero', points: 200 },
   { id: 57, categoryId: 'cultura-familiar', q: '🎵 RETO MUSICAL: Canten la canción de Mapy que inventó Tío Neto', a: '"Ay María Paula... qué niña tan buena, yo la quiero mucho, mucho de verdad"', points: 200 },
   { id: 58, categoryId: 'cultura-familiar', q: '¿Qué palabra de la familia usamos para decir "naco"?', a: 'Chabuz', points: 200 },
+  { id: 110, categoryId: 'cultura-familiar', q: '¿Cuál fue el primer perrito de la familia en tener Facebook', a: 'Capu Dieck', points: 200, media: { type: 'video', url: './media/questions/Capu.png', caption: 'Capu', showWith: 'answer' } },
   { id: 59, categoryId: 'cultura-familiar', q: 'Menciona UN platillo que nunca faltaba los sábados en casa de Siti, hecho por Buch', a: 'Tostadas u Hojas de parra', points: 200 },
   { id: 60, categoryId: 'cultura-familiar', q: '¿Cómo le decimos de cariño a la tía Conchita y sus hijas, y por qué?', a: '"Las Tiburtinas" - porque viven en Via Tiburtina', points: 200 },
   { id: 61, categoryId: 'cultura-familiar', q: '¿Qué significa la palabra árabe "Haram"?', a: 'Pobrecito / Cositas', points: 250 },
@@ -123,6 +127,7 @@ export const questions: Question[] = [
   { id: 80, categoryId: 'lugares', q: '¿Quién rompió una maceta en el hotel de San Antonio?', a: 'Enitis', points: 200 },
   { id: 81, categoryId: 'lugares', q: '¿En qué lugar celebraron Siti y el abuelito sus 50 años de casados?', a: 'En el Palestino', points: 200 },
   { id: 82, categoryId: 'lugares', q: '¿Cómo se llamaba el crucero de año nuevo?', a: 'Rhapsody of the Seas', points: 200 },
+  { id: 112, categoryId: 'lugares', q: '¿Cómo se llamaba el campamento de verano que organizaba mi tío Chano en donde los primos pasaron veranos muy felices?', a: 'Space Camp', points: 250 },
   { id: 83, categoryId: 'lugares', q: '¿Cómo se llamaba el supermercado frente a la iglesia El Rosario cerca de casa de Siti?', a: 'La Palanca (después se convirtió en Super Roma)', points: 250 },
   { id: 84, categoryId: 'lugares', q: '¿Cómo se llamaba el campamento de basquetbol al que íbamos de niños?', a: 'Spurs o Crusader', points: 300 },
   { id: 85, categoryId: 'lugares', q: 'Una tía se perdió en Cozumel en una de las paradas del crucero de año nuevo. ¿Quién fue?', a: 'Tía Marce', points: 300 },
@@ -149,6 +154,7 @@ export const questions: Question[] = [
   { id: 103, categoryId: 'personajes', q: '¿Cuál miembro de la familia fue Presidente del club de fans de One Direction en México?', a: 'Mapy', points: 300 },
   { id: 104, categoryId: 'personajes', q: '¿Qué familiar fue embajador de México ante la Unión Europea?', a: 'Tía Luly', points: 300 },
   { id: 105, categoryId: 'personajes', q: '¿Cómo se llamaba la mucama de tía Paula que se durmió en su cama?', a: 'Esmeralda', points: 350 },
+  {id: 111, categoryId: 'personajes', q: '¿Cómo le decían a Tía Marce en el Mater?', a: 'Chiquita Dieck', points: 350 },
   { id: 108, categoryId: 'personajes', q: '¿Cómo se llamaba la señora que le devolvió un pan árabe a Siti con la excusa de que estaba echado a perder?  ', a: 'San Juana', points: 400 },
   { id: 106, categoryId: 'personajes', q: '🎙️ PREGUNTA FINAL: ¿Quién es el compañero de podcast del tío Mauricio?', a: 'Alex Porras', points: 400 }
 ];
