@@ -1,9 +1,17 @@
+export interface MediaContent {
+  type: 'image' | 'video' | 'youtube';
+  url: string;
+  caption?: string;
+  showWith: 'question' | 'answer' | 'both';
+}
+
 export interface Question {
   id: number;
   categoryId: string;
   q: string;
   a: string;
   points: number;
+  media?: MediaContent;
 }
 
 export interface Category {
@@ -63,7 +71,7 @@ export const questions: Question[] = [
   { id: 34, categoryId: 'anecdotas', q: '¿Quién se hizo pasar por Marce diciendo "Hola soy Marce, estoy malita, quiero a mi mami"?', a: 'Alf', points: 250 },
   { id: 35, categoryId: 'anecdotas', q: '¿Qué condición decía Flety que tenía al tratar de levantarse pero nadie le creía?', a: 'Parálisis del sueño', points: 250 },
   { id: 36, categoryId: 'anecdotas', q: '¿De qué hotel corrieron a los primos por comerse pizzas que no eran suyas?', a: 'Embassy Suites en McAllen', points: 300 },
-  { id: 37, categoryId: 'anecdotas', q: 'Flety le cambió el fondo de pantalla a Siti. ¿De quién era la foto y qué dijo Siti al verla?', a: 'Flavor Flav - Siti dijo: "¿Quién es ese viejo tan feo?"', points: 300 },
+  { id: 37, categoryId: 'anecdotas', q: 'Flety le cambió el fondo de pantalla a Siti. ¿De quién era la foto y qué dijo Siti al verla?', a: 'Flavor Flav - Siti dijo: "¿Quién es ese viejo tan feo?"', points: 300, media: { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Flavor_Flav_at_Snoop%27s_40th_Birthday.jpg/440px-Flavor_Flav_at_Snoop%27s_40th_Birthday.jpg', caption: 'Flavor Flav', showWith: 'answer' } },
   { id: 38, categoryId: 'anecdotas', q: 'En el crucero, ¿qué dos familiares le pedían al Alf que esperara la pizza mientras ellos se dormían? (Por eso se aprendió todos los anuncios de la tele)', a: 'Tony y Coki', points: 300 },
   { id: 39, categoryId: 'anecdotas', q: '¿Quién le bajó 3 aguas de horchata a la Panga y además fue candidato a alcalde de San Pedro?', a: 'Manuel Pichón', points: 300 },
   { id: 40, categoryId: 'anecdotas', q: '¿Quién se escondia en los rackets de ropa y quitaba las etiquetas de las tiendas cuando era chica?', a: 'Josephine', points: 350 },

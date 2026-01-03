@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import { Sparkles, Trophy, BookOpen } from 'lucide-react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Sparkles, Trophy, BookOpen, Clock, AlertTriangle } from 'lucide-react';
 import { categories, getQuestionsByCategory, type Question, type Category } from '../triviaData';
 import QuestionReview from './QuestionReview';
 import CategoryWheel from './CategoryWheel';
+import MediaDisplay from './MediaDisplay';
 
 // Type Definitions
 interface Team {
@@ -37,6 +38,101 @@ const TriviaGame: React.FC = () => {
     { id: 3, name: 'Equipo 3', score: 0, color: 'bg-blue-500' }
   ]);
 
+  // Configuración de robo de puntos
+  const [stealModeEnabled, setStealModeEnabled] = useState<boolean>(true);
+  const [timeLimit, setTimeLimit] = useState<number>(30); // segundos
+  
+  // Estados del juego con timer
+  const [selectingTeam, setSelectingTeam] = useState<boolean>(false);
+  const [currentTeamIndex, setCurrentTeamIndex] = useState<number>(-1);
+  const [timeRemaining, setTimeRemaining] = useState<number>(0);
+  const [timerActive, setTimerActive] = useState<boolean>(false);
+  const [stealMode, setStealMode] = useState<boolean>(false);
+  const [teamsAttempted, setTeamsAttempted] = useState<Set<number>>(new Set());
+  const [originalTeamIndex, setOriginalTeamIndex] = useState<number>(-1);
+
+  // Timer effect
+  useEffect(() => {
+    let interval: ReturnType<typeof setInterval> | null = null;
+    
+    if (timerActive && timeRemaining > 0) {
+      interval = setInterval(() => {
+        setTimeRemaining(prev => prev - 1);
+      }, 1000);
+    } else if (timerActive && timeRemaining === 0) {
+      // Tiempo agotado
+      handleTimeUp();
+    }
+    
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [timerActive, timeRemaining]);
+
+  const handleTimeUp = useCallback((): void => {
+    setTimerActive(false);
+    
+    if (!stealModeEnabled) {
+      // Sin robo, mostrar respuesta y terminar
+      setShowAnswer(true);
+      return;
+    }
+    
+    if (!stealMode) {
+      // El equipo original falló, activar modo robo
+      // Nota: activateStealMode se llama con el currentTeamIndex actual como equipo original
+      setStealMode(true);
+      // El equipo original no puede participar en el robo
+      const attempted = new Set<number>([currentTeamIndex]);
+      setTeamsAttempted(attempted);
+      
+      // Encontrar el siguiente equipo que puede robar
+      let nextTeamIdx = -1;
+      for (let i = 0; i < teams.length; i++) {
+        if (!attempted.has(i)) {
+          nextTeamIdx = i;
+          break;
+        }
+      }
+      
+      if (nextTeamIdx !== -1) {
+        setCurrentTeamIndex(nextTeamIdx);
+        setTimeRemaining(timeLimit);
+        setTimerActive(true);
+      } else {
+        // Nadie más puede robar
+        setShowAnswer(true);
+      }
+    } else {
+      // Un equipo en modo robo falló, pasar al siguiente
+      moveToNextStealTeam();
+    }
+  }, [stealMode, stealModeEnabled, currentTeamIndex, teams.length, timeLimit]);
+
+  const moveToNextStealTeam = (): void => {
+    const newAttempted = new Set([...teamsAttempted, currentTeamIndex]);
+    setTeamsAttempted(newAttempted);
+    
+    const nextTeamIndex = findNextStealTeam(newAttempted);
+    if (nextTeamIndex !== -1) {
+      setCurrentTeamIndex(nextTeamIndex);
+      setTimeRemaining(timeLimit);
+      setTimerActive(true);
+    } else {
+      // Nadie más puede robar
+      setShowAnswer(true);
+    }
+  };
+
+  const findNextStealTeam = (attempted: Set<number>): number => {
+    for (let i = 0; i < teams.length; i++) {
+      if (!attempted.has(i)) {
+        return i;
+      }
+    }
+    return -1;
+  };
+
   const handleAddTeam = (): void => {
     if (teams.length >= TEAM_COLORS.length) return;
     const newId = Math.max(...teams.map(t => t.id)) + 1;
@@ -70,6 +166,63 @@ const TriviaGame: React.FC = () => {
   const handleQuestionSelect = (question: Question): void => {
     setCurrentQuestion(question);
     setShowAnswer(false);
+    setSelectingTeam(true);
+    setStealMode(false);
+    setTeamsAttempted(new Set());
+    setCurrentTeamIndex(-1);
+    setOriginalTeamIndex(-1);
+  };
+
+  const handleTeamSelected = (teamIndex: number): void => {
+    setSelectingTeam(false);
+    setCurrentTeamIndex(teamIndex);
+    setOriginalTeamIndex(teamIndex);
+    setTimeRemaining(timeLimit);
+    setTimerActive(true);
+  };
+
+  const handleCorrectAnswer = (teamIndex: number): void => {
+    if (currentQuestion) {
+      const points = stealMode ? Math.floor(currentQuestion.points / 2) : currentQuestion.points;
+      handleAddPoints(teams[teamIndex].id, points);
+    }
+    handleBack();
+  };
+
+  const handleWrongAnswer = (): void => {
+    setTimerActive(false);
+    
+    if (!stealModeEnabled || stealMode) {
+      // Sin robo habilitado o ya estamos en modo robo
+      if (stealMode) {
+        moveToNextStealTeam();
+      } else {
+        setShowAnswer(true);
+      }
+    } else {
+      // Activar modo robo - usar originalTeamIndex directamente
+      setStealMode(true);
+      // El equipo original no puede participar en el robo
+      const attempted = new Set<number>([originalTeamIndex]);
+      setTeamsAttempted(attempted);
+      
+      // Encontrar el siguiente equipo que puede robar
+      const nextTeamIdx = findNextStealTeam(attempted);
+      if (nextTeamIdx !== -1) {
+        setCurrentTeamIndex(nextTeamIdx);
+        setTimeRemaining(timeLimit);
+        setTimerActive(true);
+      } else {
+        // Nadie más puede robar
+        setShowAnswer(true);
+      }
+    }
+  };
+
+  const handleSkipSteal = (): void => {
+    // El equipo actual no quiere robar, pasar al siguiente
+    setTimerActive(false);
+    moveToNextStealTeam();
   };
 
   const handleShowAnswer = (): void => {
@@ -92,6 +245,12 @@ const TriviaGame: React.FC = () => {
     setCurrentQuestion(null);
     setCurrentCategory(null);
     setShowAnswer(false);
+    setTimerActive(false);
+    setSelectingTeam(false);
+    setStealMode(false);
+    setTeamsAttempted(new Set());
+    setCurrentTeamIndex(-1);
+    setOriginalTeamIndex(-1);
   };
 
   const handleResetGame = (): void => {
@@ -100,6 +259,12 @@ const TriviaGame: React.FC = () => {
     setCurrentCategory(null);
     setShowAnswer(false);
     setAnsweredQuestions(new Set());
+    setTimerActive(false);
+    setSelectingTeam(false);
+    setStealMode(false);
+    setTeamsAttempted(new Set());
+    setCurrentTeamIndex(-1);
+    setOriginalTeamIndex(-1);
   };
 
   // Get completed categories (all questions answered)
@@ -180,6 +345,61 @@ const TriviaGame: React.FC = () => {
             </p>
           </div>
 
+          {/* Configuración de Robo de Puntos */}
+          <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-6 mb-8">
+            <h3 className="text-2xl font-bold text-white mb-4 flex items-center justify-center gap-2">
+              <Clock className="w-6 h-6" />
+              Configuración del Juego
+            </h3>
+            
+            {/* Toggle de Robo */}
+            <div className="flex items-center justify-between mb-4 bg-white/10 rounded-lg p-4">
+              <div className="text-left">
+                <div className="text-white font-semibold">Robo de Puntos</div>
+                <div className="text-white/70 text-sm">Si un equipo falla, otros pueden robar</div>
+              </div>
+              <button
+                onClick={() => setStealModeEnabled(!stealModeEnabled)}
+                className={`relative inline-flex h-8 w-14 items-center rounded-full transition-colors ${
+                  stealModeEnabled ? 'bg-green-500' : 'bg-gray-500'
+                }`}
+              >
+                <span
+                  className={`inline-block h-6 w-6 transform rounded-full bg-white transition-transform ${
+                    stealModeEnabled ? 'translate-x-7' : 'translate-x-1'
+                  }`}
+                />
+              </button>
+            </div>
+
+            {/* Tiempo límite */}
+            <div className="bg-white/10 rounded-lg p-4">
+              <div className="flex items-center justify-between mb-2">
+                <div className="text-white font-semibold">Tiempo por respuesta</div>
+                <div className="text-yellow-300 font-bold text-xl">{timeLimit} segundos</div>
+              </div>
+              <input
+                type="range"
+                min="10"
+                max="60"
+                step="5"
+                value={timeLimit}
+                onChange={(e) => setTimeLimit(Number(e.target.value))}
+                className="w-full h-2 bg-white/30 rounded-lg appearance-none cursor-pointer"
+              />
+              <div className="flex justify-between text-white/60 text-sm mt-1">
+                <span>10s</span>
+                <span>60s</span>
+              </div>
+            </div>
+
+            {stealModeEnabled && (
+              <p className="text-yellow-200/80 text-sm mt-3">
+                💡 En modo robo, los puntos valen la mitad
+              </p>
+            )}
+          </div>
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button
               onClick={handleStartGame}
@@ -202,22 +422,100 @@ const TriviaGame: React.FC = () => {
 
   // Question View
   if (currentQuestion) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-blue-900 p-8">
-        <div className="max-w-6xl mx-auto">
-          {/* Header */}
-          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 mb-8">
-            <div className="flex justify-between items-center">
+    // Selección de equipo inicial
+    if (selectingTeam) {
+      return (
+        <div className="min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-blue-900 p-8">
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 mb-8">
               <button
                 onClick={handleBack}
                 className="bg-white/20 hover:bg-white/30 text-white px-6 py-3 rounded-lg font-semibold"
               >
                 ← Regresar
               </button>
-              <div className="text-white text-2xl font-bold">
-                {currentQuestion.points} puntos
+            </div>
+
+            <div className="bg-white rounded-3xl p-12 mb-8 shadow-2xl text-center">
+              <h2 className="text-4xl font-bold text-gray-800 mb-4">
+                ¿Qué equipo responde?
+              </h2>
+              <p className="text-xl text-gray-600 mb-8">
+                Pregunta de {currentQuestion.points} puntos
+              </p>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {teams.map((team, index) => (
+                  <button
+                    key={team.id}
+                    onClick={() => handleTeamSelected(index)}
+                    className={`${team.color} hover:opacity-90 text-white font-bold text-2xl py-8 px-6 rounded-2xl shadow-xl transform hover:scale-105 transition-all`}
+                  >
+                    {team.name}
+                  </button>
+                ))}
               </div>
             </div>
+          </div>
+        </div>
+      );
+    }
+
+    // Vista de pregunta con timer
+    const currentTeam = currentTeamIndex >= 0 ? teams[currentTeamIndex] : null;
+    const timerPercentage = (timeRemaining / timeLimit) * 100;
+    const isLowTime = timeRemaining <= 5;
+
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-blue-900 p-8">
+        <div className="max-w-6xl mx-auto">
+          {/* Header con Timer */}
+          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 mb-8">
+            <div className="flex justify-between items-center mb-4">
+              <button
+                onClick={handleBack}
+                className="bg-white/20 hover:bg-white/30 text-white px-6 py-3 rounded-lg font-semibold"
+              >
+                ← Regresar
+              </button>
+              
+              {/* Indicador de modo */}
+              {stealMode && (
+                <div className="flex items-center gap-2 bg-orange-500 px-4 py-2 rounded-lg animate-pulse">
+                  <AlertTriangle className="w-5 h-5 text-white" />
+                  <span className="text-white font-bold">¡MODO ROBO!</span>
+                </div>
+              )}
+              
+              <div className="text-white text-2xl font-bold">
+                {stealMode ? `${Math.floor(currentQuestion.points / 2)} pts (robo)` : `${currentQuestion.points} puntos`}
+              </div>
+            </div>
+
+            {/* Timer Bar */}
+            {timerActive && currentTeam && (
+              <div className="mt-4">
+                <div className="flex items-center justify-between mb-2">
+                  <div className={`${currentTeam.color} px-4 py-2 rounded-lg`}>
+                    <span className="text-white font-bold text-lg">{currentTeam.name}</span>
+                  </div>
+                  <div className={`flex items-center gap-2 ${isLowTime ? 'animate-pulse' : ''}`}>
+                    <Clock className={`w-6 h-6 ${isLowTime ? 'text-red-400' : 'text-white'}`} />
+                    <span className={`text-3xl font-bold ${isLowTime ? 'text-red-400' : 'text-white'}`}>
+                      {timeRemaining}s
+                    </span>
+                  </div>
+                </div>
+                <div className="w-full bg-white/20 rounded-full h-4 overflow-hidden">
+                  <div 
+                    className={`h-full transition-all duration-1000 ease-linear ${
+                      isLowTime ? 'bg-red-500' : 'bg-green-500'
+                    }`}
+                    style={{ width: `${timerPercentage}%` }}
+                  />
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Question */}
@@ -226,11 +524,22 @@ const TriviaGame: React.FC = () => {
               {currentQuestion.q}
             </h2>
             
+            {/* Media con la pregunta */}
+            {currentQuestion.media && 
+             (currentQuestion.media.showWith === 'question' || currentQuestion.media.showWith === 'both') && (
+              <MediaDisplay media={currentQuestion.media} className="mt-6" />
+            )}
+            
             {showAnswer && (
               <div className="bg-green-100 border-4 border-green-500 rounded-2xl p-8 mt-8">
                 <p className="text-3xl text-green-800 font-bold text-center">
                   {currentQuestion.a}
                 </p>
+                
+                {/* Media con la respuesta (solo si showWith es 'answer') */}
+                {currentQuestion.media && currentQuestion.media.showWith === 'answer' && (
+                  <MediaDisplay media={currentQuestion.media} className="mt-6" />
+                )}
               </div>
             )}
           </div>
@@ -238,34 +547,56 @@ const TriviaGame: React.FC = () => {
           {/* Controls */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {!showAnswer ? (
-              <button
-                onClick={handleShowAnswer}
-                className="col-span-full bg-yellow-400 hover:bg-yellow-300 text-gray-800 font-bold text-3xl py-6 px-8 rounded-2xl shadow-xl transform hover:scale-105 transition-all"
-              >
-                Mostrar Respuesta 👀
-              </button>
+              <>
+                {/* Botones durante el juego activo */}
+                {timerActive && currentTeam && (
+                  <>
+                    <button
+                      onClick={() => {
+                        setTimerActive(false);
+                        handleCorrectAnswer(currentTeamIndex);
+                      }}
+                      className="bg-green-500 hover:bg-green-400 text-white font-bold text-2xl py-6 px-8 rounded-2xl shadow-xl transform hover:scale-105 transition-all"
+                    >
+                      ✓ ¡Correcto!
+                    </button>
+                    <button
+                      onClick={handleWrongAnswer}
+                      className="bg-red-500 hover:bg-red-400 text-white font-bold text-2xl py-6 px-8 rounded-2xl shadow-xl transform hover:scale-105 transition-all"
+                    >
+                      ✗ Incorrecto
+                    </button>
+                    {stealMode && (
+                      <button
+                        onClick={handleSkipSteal}
+                        className="col-span-full bg-gray-600 hover:bg-gray-500 text-white font-bold text-xl py-4 px-8 rounded-2xl"
+                      >
+                        {currentTeam.name} no quiere robar
+                      </button>
+                    )}
+                  </>
+                )}
+                
+                {/* Botón de mostrar respuesta (cuando no hay timer activo) */}
+                {!timerActive && !stealMode && (
+                  <button
+                    onClick={handleShowAnswer}
+                    className="col-span-full bg-yellow-400 hover:bg-yellow-300 text-gray-800 font-bold text-3xl py-6 px-8 rounded-2xl shadow-xl transform hover:scale-105 transition-all"
+                  >
+                    Mostrar Respuesta 👀
+                  </button>
+                )}
+              </>
             ) : (
               <>
                 <div className="col-span-full text-white text-2xl text-center mb-4 font-semibold">
-                  ¿Quién respondió correctamente?
+                  Nadie acertó - Respuesta mostrada
                 </div>
-                {teams.map(team => (
-                  <button
-                    key={team.id}
-                    onClick={() => {
-                      handleAddPoints(team.id, currentQuestion.points);
-                      handleBack();
-                    }}
-                    className={`${team.color} hover:opacity-90 text-white font-bold text-2xl py-6 px-8 rounded-2xl shadow-xl transform hover:scale-105 transition-all`}
-                  >
-                    {team.name} (+{currentQuestion.points})
-                  </button>
-                ))}
                 <button
                   onClick={handleBack}
                   className="col-span-full bg-gray-600 hover:bg-gray-500 text-white font-bold text-xl py-4 px-8 rounded-2xl"
                 >
-                  Nadie acertó (Regresar)
+                  Continuar (Regresar)
                 </button>
               </>
             )}
