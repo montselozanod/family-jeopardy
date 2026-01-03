@@ -50,6 +50,8 @@ const TriviaGame: React.FC = () => {
   const [stealMode, setStealMode] = useState<boolean>(false);
   const [teamsAttempted, setTeamsAttempted] = useState<Set<number>>(new Set());
   const [originalTeamIndex, setOriginalTeamIndex] = useState<number>(-1);
+  const [winnerTeamIndex, setWinnerTeamIndex] = useState<number>(-1);
+  const [pointsWon, setPointsWon] = useState<number>(0);
 
   // Timer effect
   useEffect(() => {
@@ -185,8 +187,10 @@ const TriviaGame: React.FC = () => {
     if (currentQuestion) {
       const points = stealMode ? Math.floor(currentQuestion.points / 2) : currentQuestion.points;
       handleAddPoints(teams[teamIndex].id, points);
+      setWinnerTeamIndex(teamIndex);
+      setPointsWon(points);
+      setShowAnswer(true);
     }
-    handleBack();
   };
 
   const handleWrongAnswer = (): void => {
@@ -251,6 +255,8 @@ const TriviaGame: React.FC = () => {
     setTeamsAttempted(new Set());
     setCurrentTeamIndex(-1);
     setOriginalTeamIndex(-1);
+    setWinnerTeamIndex(-1);
+    setPointsWon(0);
   };
 
   const handleResetGame = (): void => {
@@ -265,6 +271,8 @@ const TriviaGame: React.FC = () => {
     setTeamsAttempted(new Set());
     setCurrentTeamIndex(-1);
     setOriginalTeamIndex(-1);
+    setWinnerTeamIndex(-1);
+    setPointsWon(0);
   };
 
   // Get completed categories (all questions answered)
@@ -299,10 +307,10 @@ const TriviaGame: React.FC = () => {
             <Sparkles className="w-20 h-20 text-yellow-300 animate-pulse" />
           </div>
           <h1 className="text-7xl font-bold text-white mb-4 drop-shadow-lg">
-            Trivia Familiar
+            ¿Qué Tan Dieck Eres?
           </h1>
           <h2 className="text-4xl text-yellow-200 mb-8">
-            Posada 2025 🎄
+            Trivia Familiar 2026 🎉
           </h2>
           
           {/* Team Configuration */}
@@ -589,14 +597,22 @@ const TriviaGame: React.FC = () => {
               </>
             ) : (
               <>
-                <div className="col-span-full text-white text-2xl text-center mb-4 font-semibold">
-                  Nadie acertó - Respuesta mostrada
-                </div>
+                {winnerTeamIndex >= 0 ? (
+                  <div className="col-span-full text-center mb-4">
+                    <div className={`${teams[winnerTeamIndex].color} text-white text-2xl font-bold py-4 px-6 rounded-2xl inline-block mb-2`}>
+                      🎉 ¡{teams[winnerTeamIndex].name} gana {pointsWon} puntos!
+                    </div>
+                  </div>
+                ) : (
+                  <div className="col-span-full text-white text-2xl text-center mb-4 font-semibold">
+                    Nadie acertó - Respuesta mostrada
+                  </div>
+                )}
                 <button
                   onClick={handleBack}
                   className="col-span-full bg-gray-600 hover:bg-gray-500 text-white font-bold text-xl py-4 px-8 rounded-2xl"
                 >
-                  Continuar (Regresar)
+                  Continuar
                 </button>
               </>
             )}
