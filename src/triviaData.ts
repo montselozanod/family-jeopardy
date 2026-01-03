@@ -40,8 +40,10 @@ export const questions: Question[] = [
   { id: 7, categoryId: 'frases-famosas', q: '¿Qué coreaban los primos cada que se acercaba la Navidad?', a: '"¡Intercambio, intercambio, intercambio!"', points: 250 },
   { id: 8, categoryId: 'frases-famosas', q: '¿Qué decía mi Alf cuando llamaba a casa de los Dieck Hugler?', a: '"Me invitas o te invito"', points: 250 },
   { id: 9, categoryId: 'frases-famosas', q: 'Tio Mauricio conoció a la tía Lula por primera vez. ¿Qué dijo?', a: '"Qué cambiado está la tía Bellita"', points: 300 },
+  { id: 89, categoryId: 'frases-famosas', q: 'Completa la frase: "Trabajando duro o..."', a: '"Durando en el trabajo"', points: 350 },
   { id: 10, categoryId: 'frases-famosas', q: '¿Qué decía Buchita cuando ella encontraba algo que tu antes habías buscado y no lo encontraste?', a: '"Si fuera víbora ya te hubiera picado"', points: 400 },
   { id: 11, categoryId: 'frases-famosas', q: '¿Quién dijo: "No entiendo por qué México no gana el mundial si tenemos al Guille que es una superestrella"?', a: 'Mapy', points: 400 },
+  { id: 88, categoryId: 'frases-famosas', q: 'Durante un viaje a McAllen, Tío Mauricio estaba llorando porque quería ir a la juguetería. Siti comenzó a contarle una larga historia sobre el futuro (escuela, graduación, matrimonio, tienda de vestidos de novia). ¿Cuál fue la frase exacta de Tío Mauricio cuando Siti terminó su relato sobre crecer?', a: 'No, yo no quiero crecer. Yo quiero ser siempre niño.', points: 450 },
 
   // Historia Familiar (12-26)
   { id: 12, categoryId: 'historia', q: 'Menciona UN restaurante donde pasamos Año Nuevo', a: 'Mirador, Magic Time Machine, Cheesecake Factory o Macaroni Grill', points: 100 },
@@ -74,7 +76,7 @@ export const questions: Question[] = [
   { id: 37, categoryId: 'anecdotas', q: 'Flety le cambió el fondo de pantalla a Siti. ¿De quién era la foto y qué dijo Siti al verla?', a: 'Flavor Flav - Siti dijo: "¿Quién es ese viejo tan feo?"', points: 300, media: { type: 'image', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Flavor_Flav_at_Snoop%27s_40th_Birthday.jpg/440px-Flavor_Flav_at_Snoop%27s_40th_Birthday.jpg', caption: 'Flavor Flav', showWith: 'answer' } },
   { id: 38, categoryId: 'anecdotas', q: 'En el crucero, ¿qué dos familiares le pedían al Alf que esperara la pizza mientras ellos se dormían? (Por eso se aprendió todos los anuncios de la tele)', a: 'Tony y Coki', points: 300 },
   { id: 39, categoryId: 'anecdotas', q: '¿Quién le bajó 3 aguas de horchata a la Panga y además fue candidato a alcalde de San Pedro?', a: 'Manuel Pichón', points: 300 },
-  { id: 40, categoryId: 'anecdotas', q: '¿Quién se escondia en los rackets de ropa y quitaba las etiquetas de las tiendas cuando era chica?', a: 'Josephine', points: 350 },
+  { id: 40, categoryId: 'anecdotas', q: 'Cuando los primos jugaron fútbol, cuál familiar fungió como árbitro y dijo "¡Penal para allá y penal para acá"?', a: 'Josephine', points: 350 },
   { id: 41, categoryId: 'anecdotas', q: '¿Quién leía las etiquetas de los juguetes en las tiendas y decía "¿Esto es para <y decía su nombre>?"?', a: 'Lulita', points: 350 },
   { id: 42, categoryId: 'anecdotas', q: '¿Qué miembro de la familia fue jugador #1 a nivel mundial en el videojuego Tibia?', a: 'Farid/Samuel - su personaje era "Mini Archer"', points: 400 },
   { id: 43, categoryId: 'anecdotas', q: 'Coki y sus amigos le pagaron un boleto de avión a este personaje para visitar a Tafich en Vancouver. ¿Quién era y qué dijo cuando finalmente lo corrió Tafich?', a: 'Manuel Pichón - "Aquí están tus llaves, tiradas a la suerte como me tiraste a mí, puñetas"', points: 450 },
@@ -88,7 +90,7 @@ export const questions: Question[] = [
   { id: 49, categoryId: 'cultura-familiar', q: '¿Qué significa "marmaja"?', a: 'Dinero / Alguien con dinero', points: 200 },
   { id: 50, categoryId: 'cultura-familiar', q: '🎵 RETO MUSICAL: Canten la canción de Mapy que inventó Tío Neto', a: '"Ay María Paula... qué niña tan buena, yo la quiero mucho, mucho de verdad"', points: 200 },
   { id: 51, categoryId: 'cultura-familiar', q: '¿Qué palabra de la familia usamos para decir "naco"?', a: 'Chabuz', points: 200 },
-  { id: 52, categoryId: 'cultura-familiar', q: 'Menciona UN plantillo que nunca faltaba los sábados en casa de Siti, hecho por Buch', a: 'Tostadas u Hojas de parra', points: 200 },
+  { id: 52, categoryId: 'cultura-familiar', q: 'Menciona UN platillo que nunca faltaba los sábados en casa de Siti, hecho por Buch', a: 'Tostadas u Hojas de parra', points: 200 },
   { id: 53, categoryId: 'cultura-familiar', q: '¿Cómo le decimos de cariño a la tía Conchita y sus hijas, y por qué?', a: '"Las Tiburtinas" - porque viven en Via Tiburtina', points: 200 },
   { id: 56, categoryId: 'cultura-familiar', q: '¿Qué significa la palabra árabe "Haram"?', a: 'Pobrecito / Cositas', points: 250 },
   { id: 57, categoryId: 'cultura-familiar', q: '¿Quién inventó la expresión "casa todos"?', a: 'Coki', points: 250 },
@@ -108,7 +110,7 @@ export const questions: Question[] = [
   { id: 69, categoryId: 'lugares', q: '¿En qué lugar celebraron Siti y el abuelito sus 50 años de casados?', a: 'En el Palestino', points: 200 },
   { id: 70, categoryId: 'lugares', q: '¿Cómo se llamaba el crucero de año nuevo?', a: 'Rhapsody of the Seas', points: 200 },
   { id: 71, categoryId: 'lugares', q: '¿Cómo se llamaba el supermercado frente a la iglesia El Rosario cerca de casa de Siti?', a: 'La Palanca (después se convirtió en Super Roma)', points: 250 },
-  { id: 72, categoryId: 'lugares', q: '¿Cómo se llamaba el campamento de basquetbol al que íbamos de niños?', a: 'Spurs o Crusander', points: 300 },
+  { id: 72, categoryId: 'lugares', q: '¿Cómo se llamaba el campamento de basquetbol al que íbamos de niños?', a: 'Spurs o Crusader', points: 300 },
   { id: 73, categoryId: 'lugares', q: '¿Cómo se llamaba la guía del viaje a Rusia y qué hizo Pedrito para que creyéramos que era de la KGB?', a: 'Varda - Pedrito entró con su pasaporte americano', points: 300 },
   { id: 74, categoryId: 'lugares', q: '¿Qué apodo le puso tío Pedro a la ciudad de Monterrey?', a: '"La caldera del diablo"', points: 400 },
 
