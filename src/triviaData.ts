@@ -87,8 +87,9 @@ export const questions: Question[] = [
 
   // Cultura Familiar (50-72)
   { id: 50, categoryId: 'cultura-familiar', q: '¿Qué juego de mesa jugábamos tradicionalmente en Año Nuevo?', a: 'Monopoly', points: 100 },
-  { id: 51, categoryId: 'cultura-familiar', q: '¿Cómo se llamaba el equipo de beisbol de liga Valle en el que estaban los primos?', a: 'Los Bravos', points: 150 },
+  { id: 51, categoryId: 'cultura-familiar', q: '¿Cómo se llamaba el equipo de beisbol de liga Valle en el que estaban los primos?', a: 'Los Bravos', points: 100 },
   { id: 52, categoryId: 'cultura-familiar', q: '¿Cómo se llama el libro que escribió Siti?', a: 'Rácimo de Cuentos', points: 150 },
+  { id: 108, categoryId: 'cultura-familiar', q: '¿De qué era el curso que dieron Tío Chano, Tía Nena y Tía Marce en la Semana I en la EGADE?', a: 'First Responders', points: 150 },
   { id: 53, categoryId: 'cultura-familiar', q: '¿Cuáles eran los tacos favoritos del abuelito Chano y la Mawita?', a: 'El Palmito', points: 150 },
   { id: 54, categoryId: 'cultura-familiar', q: '¿Cómo se llama la hermana más chiquita de Siti?', a: 'Polly', points: 150 },
   { id: 55, categoryId: 'cultura-familiar', q: '¿Cómo le decía de cariño el abuelito Chano a Siti?', a: '"La hermana de la caridad"', points: 150 },
@@ -111,7 +112,8 @@ export const questions: Question[] = [
   { id: 72, categoryId: 'cultura-familiar', q: '¿A qué casa quería ir tía Nena siempre los domingos por unas mentitas que daba una tía?', a: 'Casa de la tía Sahuille', points: 350 },
   { id: 73, categoryId: 'cultura-familiar', q: '¿Por qué y quién fue la iniciadora de pedir a domicilio pizzas a las señoritas Garza (vecinas de Palestina 600)?', a: 'Tío Luly, porque no devolvían las pelotas', points: 350 },
   { id: 74, categoryId: 'cultura-familiar', q: '¿Qué familiar tiene DOS cumpleaños? ¿En qué fechas?', a: 'Abuelito Chano - 4 de julio y 18 de agosto', points: 400 },
-  { id: 75, categoryId: 'cultura-familiar', q: '¿Qué dos bisnietos de Siti cumplen años el mismo día?', a: 'Tony bebé y Elen', points: 500 },
+  { id: 75, categoryId: 'cultura-familiar', q: '¿Qué dos bisnietos de Siti cumplen años el mismo día?', a: 'Tony bebé y Elen', points: 450 },
+  { id: 107, categoryId: 'cultura-familiar', q: '¿Qué es Älfñ?', a: 'Mensaje de spam que recibió Fany y pensaron que era de una secta de aliens', points: 500 },
 
   // Lugares y Viajes (76-88)
   { id: 76, categoryId: 'lugares', q: '¿Cuál es la dirección exacta de la casa de la familia Dieck Assad de McAllen?', a: 'Esperanza 600', points: 100 },
@@ -138,6 +140,7 @@ export const questions: Question[] = [
   { id: 95, categoryId: 'personajes', q: '¿Cómo se llamaba el profesor del Regio Contry que iba a quejarse con Siti de la conducta de sus hijos?', a: 'El profesor Roibal', points: 200 },
   { id: 96, categoryId: 'personajes', q: '¿Cómo se llamaba el chofer que hacía destrozos en las paredes del Centro Médico del Hospital San José?', a: 'Miguel / Miguelón', points: 200 },
   { id: 97, categoryId: 'personajes', q: '¿Qué miembro de la familia jugó en la liga mayor de los Borregos y pertence al Salón de la Fama del Tec?', a: 'Tío Tony', points: 200 },
+  { id: 109, categoryId: 'personajes', q: 'La persona que siempre regalaba un rollo de guayaba a toda la familia.', a: 'Jaime Martínez', points: 250 },
   { id: 98, categoryId: 'personajes', q: '¿Qué primo nos ilusionó con una fuente de Bacardí en su boda y nos dejó solo con el recuerdo?', a: 'Coki', points: 250 },
   { id: 99, categoryId: 'personajes', q: '¿Quién era él/la gran consentida de Buchita?', a: 'Marce', points: 250 },
   { id: 100, categoryId: 'personajes', q: '¿Qué sacerdote casó a Neto y Wendy?', a: 'Padre Pedro', points: 250 },
@@ -146,6 +149,7 @@ export const questions: Question[] = [
   { id: 103, categoryId: 'personajes', q: '¿Cuál miembro de la familia fue Presidente del club de fans de One Direction en México?', a: 'Mapy', points: 300 },
   { id: 104, categoryId: 'personajes', q: '¿Qué familiar fue embajador de México ante la Unión Europea?', a: 'Tía Luly', points: 300 },
   { id: 105, categoryId: 'personajes', q: '¿Cómo se llamaba la mucama de tía Paula que se durmió en su cama?', a: 'Esmeralda', points: 350 },
+  { id: 108, categoryId: 'personajes', q: '¿Cómo se llamaba la señora que le devolvió un pan árabe a Siti con la excusa de que estaba echado a perder?  ', a: 'San Juana', points: 400 },
   { id: 106, categoryId: 'personajes', q: '🎙️ PREGUNTA FINAL: ¿Quién es el compañero de podcast del tío Mauricio?', a: 'Alex Porras', points: 400 }
 ];
 
